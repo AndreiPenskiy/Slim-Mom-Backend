@@ -2,8 +2,19 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const bcrypt = require("bcryptjs");
 
+const emailRegexp = /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const nameRegexp = /^[а-яА-ЯёЁєЄґҐїЇіІ' a-zA-Z]+$/;
+
 const userSchema = Schema(
   {
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+      match: nameRegexp,
+      minLength: 2,
+      maxLength: 16,
+    },
+
     password: {
       type: String,
       minlength: 8,
@@ -13,12 +24,26 @@ const userSchema = Schema(
       type: String,
       required: [true, "Email is required"],
       unique: true,
-      match: /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+      match: emailRegexp,
     },
-    subscription: {
-      type: String,
-      enum: ["starter", "pro", "business"],
-      default: "starter",
+    parameters: {
+      type: Object,
+      default: {
+        age: "0",
+        height: "0",
+        currentWeight: "0",
+        desiredWeight: "0",
+        bloodType: "1",
+        calories: "0",
+      },
+    },
+    notAllowedProducts: {
+      type: Array,
+      default: [],
+    },
+    verify: {
+      type: Boolean,
+      default: false,
     },
     token: {
       type: String,
@@ -37,17 +62,14 @@ userSchema.methods.comparePassword = function (password) {
 };
 
 const joiSchema = Joi.object({
-  password: Joi.string().required(),
+  name: Joi.string().pattern(nameRegexp).min(2).max(16).required(),
   email: Joi.string().email().required(),
+  password: Joi.string().required(),
 });
 
 const joiLoginSchema = Joi.object({
-  password: Joi.string().min(6).required(),
   email: Joi.string().email().required(),
-});
-
-const joiSubscriptionSchema = Joi.object({
-  subscription: Joi.string().valid("starter", "pro", "business"),
+  password: Joi.string().min(6).required(),
 });
 
 const User = model("user", userSchema);
@@ -56,5 +78,4 @@ module.exports = {
   User,
   joiSchema,
   joiLoginSchema,
-  joiSubscriptionSchema,
 };

@@ -26,6 +26,12 @@ const userSchema = Schema(
       unique: true,
       match: emailRegexp,
     },
+
+    calories: {
+      type: Number,
+      default: null,
+    },
+
     parameters: {
       type: Object,
       default: {

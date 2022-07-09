@@ -1,25 +1,25 @@
-const { canculatorCalories, getNotAllowed } = require("../../utils");
+const { calculatorPage } = require("../../utils");
 const { User } = require("../../models");
 
 const calculatorPagePrivate = async (req, res) => {
   const { _id } = req.user;
-  const { parameters } = await User.findById(_id);
+  const { parameters } = req.body;
+  const { calories, notAllowedFood } = await calculatorPage(parameters);
 
-  const calories = canculatorCalories(parameters);
-  const notAllowedFood = getNotAllowed({
-    bloodType: parameters.bloodType,
-    foodList: [],
+  await User.findByIdAndUpdate(_id, {
+    calories,
+    parameters,
+    notAllowedProducts: notAllowedFood,
   });
-
-  //     "ФОРМУЛА ДЛЯ РОЗРАХУНКУ ДЕННОЇ НОРМИ КАЛОРІЙ ЖІНКАМ
-  // 10 * вага + 6.25 * зріст - 5 * вік - 161 - 10 * (вага - бажана вага)"
 
   res.json({
     status: "success",
     code: 200,
     data: {
       calories:
-        calories > 0 ? calories : "Curren weight is less then disire weight",
+        calories > 0
+          ? calories
+          : "You filled one of the field with 0 or less. Try something else, please",
       notAllowedFood,
     },
   });

@@ -18,7 +18,7 @@ const specificDaySchema = Schema(
 );
 
 const joiAddProductSchema = Joi.object({
-  date: Joi.string().required,
+  date: Joi.string().required(),
   title: Joi.string().required(),
   weight: Joi.number().required(),
 });

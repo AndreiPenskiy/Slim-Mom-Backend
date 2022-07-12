@@ -13,4 +13,8 @@ router.post(
   ctrlWrapper(ctrl.addProduct)
 );
 
+router.delete("/:productId", ctrlWrapper(ctrl.deleteProductById));
+
+router.get("/", ctrlWrapper(ctrl.getAll));
+
 module.exports = router;

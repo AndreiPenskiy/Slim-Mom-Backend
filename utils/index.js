@@ -33,8 +33,17 @@ async function calculatorPage(parameters) {
   };
 }
 
+const convertKcal = async (title, weightToConvert) => {
+  const product = await Product.findOne({ "title.ua": title });
+
+  const { calories, weight } = product;
+  const productKcal = Math.round((calories / weight) * weightToConvert);
+  return productKcal;
+};
+
 module.exports = {
   canculatorCalories,
   getNotAllowed,
   calculatorPage,
+  convertKcal,
 };

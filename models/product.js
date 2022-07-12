@@ -8,10 +8,9 @@ const productSchema = Schema({
   weight: {
     type: Number,
   },
-  title: Schema({
-    ru: { type: String, index: true },
-    ua: { type: String, index: true },
-  }),
+  title: {
+    type: Object,
+  },
   calories: {
     type: Number,
   },

@@ -4,7 +4,7 @@ const Joi = require("joi");
 const specificDaySchema = Schema(
   {
     date: {
-      type: String,
+      type: Date,
       required: true,
     },
     title: { type: String, required: true },

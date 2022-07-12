@@ -9,6 +9,7 @@ const specificDaySchema = Schema(
     },
     title: { type: String, required: true },
     weight: { type: Number, required: true },
+    kcal: { type: Number, required: true },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",

@@ -18,4 +18,8 @@ router.post(
   ctrlWrapper(ctrl.calculatorPagePrivate)
 );
 
+
+// router.get('/', auth, ctrlWrapper(ctrl.searchProducts)); 
+router.get("/search", auth, ctrlWrapper(ctrl.searchProducts));
+
 module.exports = router;

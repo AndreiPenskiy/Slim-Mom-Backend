@@ -24,6 +24,8 @@ const login = async (req, res) => {
     code: 200,
     data: {
       token,
+      name: user.name,
+      email,
     },
   });
 };

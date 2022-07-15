@@ -21,10 +21,10 @@ const productSchema = Schema({
 
 const joiParametersSchema = Joi.object({
   parameters: {
-    height: Joi.string().required(),
-    age: Joi.string().required(),
-    currentWeight: Joi.string().required(),
-    desiredWeight: Joi.string().required(),
+    height: Joi.number().required(),
+    age: Joi.number().required(),
+    currentWeight: Joi.number().required(),
+    desiredWeight: Joi.number().required(),
     bloodType: Joi.string().required(),
   },
 });

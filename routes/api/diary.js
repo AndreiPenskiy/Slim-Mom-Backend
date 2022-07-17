@@ -15,6 +15,6 @@ router.post(
 
 router.delete("/:productId", ctrlWrapper(ctrl.deleteProductById));
 
-router.get("/:date", auth, ctrlWrapper(ctrl.getAll));
+router.get("/", auth, ctrlWrapper(ctrl.getAll));
 
 module.exports = router;

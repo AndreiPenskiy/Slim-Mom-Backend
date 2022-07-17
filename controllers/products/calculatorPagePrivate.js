@@ -16,6 +16,7 @@ const calculatorPagePrivate = async (req, res) => {
     status: "success",
     code: 200,
     data: {
+      parameters,
       calories:
         calories > 0
           ? calories

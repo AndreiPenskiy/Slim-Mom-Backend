@@ -40,7 +40,6 @@ const userSchema = Schema(
         currentWeight: "0",
         desiredWeight: "0",
         bloodType: "1",
-        calories: "0",
       },
     },
     notAllowedProducts: {
@@ -71,6 +70,19 @@ const joiSchema = Joi.object({
   name: Joi.string().pattern(nameRegexp).min(2).max(16).required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
+  parameters: Joi.object({
+    height: Joi.number(),
+    age: Joi.number(),
+    currentWeight: Joi.number(),
+    desiredWeight: Joi.number(),
+    bloodType: Joi.string(),
+  })
+    .not()
+    .required(),
+  calculator: Joi.object({
+    calories: Joi.number(),
+    notRecomendate: Joi.array(),
+  }),
 });
 
 const joiLoginSchema = Joi.object({

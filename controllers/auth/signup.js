@@ -38,7 +38,8 @@ const signup = async (req, res) => {
         name,
         email,
         parameters: Object.keys(parameters).length !== 0 ? parameters : null,
-        ...calculator,
+        notAllowedProducts: newUser.notAllowedProducts,
+        calories: newUser.calories,
       },
     },
   });

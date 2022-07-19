@@ -3,14 +3,12 @@ const Joi = require("joi");
 const bcrypt = require("bcryptjs");
 
 const emailRegexp = /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-// const nameRegexp = /^[а-яА-ЯёЁєЄґҐїЇіІ' a-zA-Z]+$/;
 
 const userSchema = Schema(
   {
     name: {
       type: String,
       required: [true, "Name is required"],
-      // match: nameRegexp,
       minLength: 2,
       maxLength: 16,
     },
@@ -66,7 +64,6 @@ userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-// pattern(nameRegexp)
 const joiSchema = Joi.object({
   name: Joi.string().min(2).max(16).required(),
   email: Joi.string().email().required(),
